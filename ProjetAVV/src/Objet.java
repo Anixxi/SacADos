@@ -1,4 +1,3 @@
-import java.util.Collections;
 
 public class Objet implements Comparable<Objet>{
     private String nom;
