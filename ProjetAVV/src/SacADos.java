@@ -59,7 +59,7 @@ public class SacADos  {
         int PRECISION = 0;
 
         int PoidsMaxInt = (int) (s.poidsMax * Math.pow(10.0, PRECISION));
-        double[][] table = new double[NB_OBJETS][s.poidsMax + 1];
+        double[][] table = new double[NB_OBJETS][PoidsMaxInt + 1];
 
         //on remplit la première ligne
         for (int j = 0; j <= PoidsMaxInt; j++) {
