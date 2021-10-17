@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class SacADos {
-    public float poidsMax;
+    public double poidsMax;
     public List<Objet> objetsSelectionne = new ArrayList<Objet>();
     public ArrayList<Objet> objets = new ArrayList<Objet>();;
     public double poidsSac;
@@ -13,6 +13,7 @@ public class SacADos {
     private static SacADos s;
     private static Gloutonne g;
     private static ProgDynamique d;
+    private static PSE pse;
 
 
     /*static List<Objet> objets = new ArrayList<>(Arrays.asList(
@@ -28,8 +29,8 @@ public class SacADos {
 
     ));*/
 
-    public SacADos(float poids) {
-        List<Objet> objets = new ArrayList<Objet>();
+    public SacADos(double poids) {
+        List<Objet> objets = new ArrayList<Objet>();  //!!
         poidsMax = poids;
         poidsSac = 0.0;
     }
@@ -97,15 +98,15 @@ public class SacADos {
         System.out.println("\nTapez le script de la façon suivante : $>resoudre-sac-a-dos chemin poids-maximal methode \n");
         System.out.print("$>resoudre-sac-a-dos ");
 
-
     }
+
     private static void lectureCommande() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String chemin = sc.next();
             if (chemin.compareTo("exit") == 0)
                 return;
-            float maxPoids = Float.valueOf(sc.next());
+            double maxPoids = Double.valueOf(sc.next());
             String methode = sc.next();
             System.out.println("\nDemande de méthode: " + methode + " avec un poids maximal de " + maxPoids + " et le nom du fichier texte est de " + chemin);
             System.out.println("------------------------------------------------------------------------------------------------------------------------");
@@ -120,7 +121,7 @@ public class SacADos {
     private static void choixMethode(String methode) {
         switch(methode){
             case "glouton":
-                Gloutonne g = new Gloutonne(s);
+                g = new Gloutonne(s);
                 g.resoudreGloutonne();
                 System.out.println(s.toString());
                 break;
@@ -131,11 +132,11 @@ public class SacADos {
                 System.out.println(s.toString());
                 break;
 
-            /*case "pse" :
-                pse = new PSE(b);
-                pse.triPSE();
-                System.out.println(b.toString());
-                break;*/
+            case "pse" :
+                //pse = new PSE(s);
+                //pse.resoudrePSE();
+                System.out.println(s.toString());
+                break;
             default :
                 System.out.println("Erreur de saisie");
         }

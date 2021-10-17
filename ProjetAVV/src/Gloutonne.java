@@ -10,9 +10,7 @@ public class Gloutonne {
 
     public void resoudreGloutonne(){
 
-
         Collections.sort(s.objets);
-
 
         for (int i = 0; i < s.objets.size(); i++) {
 
