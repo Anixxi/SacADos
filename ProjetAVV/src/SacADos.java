@@ -39,6 +39,14 @@ public class SacADos {
 
     }
 
+    public double valeurTotal(){
+        double val = 0;
+        for(Objet o : objetsSelectionne){
+            val += o.getValeur();
+        }
+        return val;
+    }
+
     public void initObjects(String chemin) {
         try {
             InputStream flux = new FileInputStream(chemin);
@@ -133,12 +141,18 @@ public class SacADos {
                 break;
 
             case "pse" :
-                //pse = new PSE(s);
-                //pse.resoudrePSE();
+                pse = new PSE(s);
+                pse.resoudrePSE();
                 System.out.println(s.toString());
                 break;
             default :
                 System.out.println("Erreur de saisie");
         }
     }
+
+    public void vider() {
+        this.objetsSelectionne.clear();
+        this.poidsSac = 0.0;
+    }
+
 }

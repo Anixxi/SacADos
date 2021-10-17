@@ -1,7 +1,7 @@
 
 public class Objet implements Comparable<Objet>{
     private String nom;
-    private double Vi, Pi;
+    private double Vi, Pi, Valeur;
 
 
     public Objet(String inom, double ipoids, double ivaleur) {
@@ -31,6 +31,10 @@ public class Objet implements Comparable<Objet>{
 
     public double rapport(){
         return this.Vi/this.Pi;
+    }
+
+    public double getValeur() {
+        return Valeur;
     }
 
     @Override
