@@ -33,6 +33,7 @@ public class Objet implements Comparable<Objet>{
         return this.Vi/this.Pi;
     }
 
+
     @Override
     public int compareTo(Objet o) {
         if (this.rapport() > o.rapport())

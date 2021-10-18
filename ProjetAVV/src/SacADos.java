@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class SacADos {
-    public int poidsMax;
+    public double poidsMax;
     public List<Objet> objetsSelectionne = new ArrayList<Objet>();
     public ArrayList<Objet> objets = new ArrayList<Objet>();;
     public double poidsSac;
@@ -13,6 +13,7 @@ public class SacADos {
     private static SacADos s;
     private static Gloutonne g;
     private static ProgDynamique d;
+    private static PSE pse;
 
 
     /*static List<Objet> objets = new ArrayList<>(Arrays.asList(
@@ -28,14 +29,22 @@ public class SacADos {
 
     ));*/
 
-    public SacADos() {
-        List<Objet> objets = new ArrayList<Objet>();
-        poidsMax = 5;
+    public SacADos(double poids) {
+        List<Objet> objets = new ArrayList<Objet>();  //!!
+        poidsMax = poids;
         poidsSac = 0.0;
     }
 
     public SacADos(String chemin, float poidsMax) {
 
+    }
+
+    public double valeurTotal(){
+        double val = 0;
+        for(Objet o : objetsSelectionne){
+            val += o.getVi();
+        }
+        return val;
     }
 
     public void initObjects(String chemin) {
@@ -97,19 +106,19 @@ public class SacADos {
         System.out.println("\nTapez le script de la façon suivante : $>resoudre-sac-a-dos chemin poids-maximal methode \n");
         System.out.print("$>resoudre-sac-a-dos ");
 
-
     }
+
     private static void lectureCommande() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String chemin = sc.next();
             if (chemin.compareTo("exit") == 0)
                 return;
-            float maxPoids = Float.valueOf(sc.next());
+            double maxPoids = Double.valueOf(sc.next());
             String methode = sc.next();
             System.out.println("\nDemande de méthode: " + methode + " avec un poids maximal de " + maxPoids + " et le nom du fichier texte est de " + chemin);
             System.out.println("------------------------------------------------------------------------------------------------------------------------");
-            s = new SacADos();
+            s = new SacADos(maxPoids);
             s.initObjects(chemin);
             choixMethode(methode);
         }
@@ -120,7 +129,7 @@ public class SacADos {
     private static void choixMethode(String methode) {
         switch(methode){
             case "glouton":
-                Gloutonne g = new Gloutonne(s);
+                g = new Gloutonne(s);
                 g.resoudreGloutonne();
                 System.out.println(s.toString());
                 break;
@@ -131,13 +140,21 @@ public class SacADos {
                 System.out.println(s.toString());
                 break;
 
-            /*case "pse" :
-                pse = new PSE(b);
-                pse.triPSE();
-                System.out.println(b.toString());
-                break;*/
+            case "pse" :
+                pse = new PSE(s);
+                g = new Gloutonne(s);
+                g.resoudreGloutonne();
+                pse.resoudrePSE();
+                System.out.println(s.toString());
+                break;
             default :
                 System.out.println("Erreur de saisie");
         }
     }
+
+    public void vider() {
+        this.objetsSelectionne.clear();
+        this.poidsSac = 0.0;
+    }
+
 }
