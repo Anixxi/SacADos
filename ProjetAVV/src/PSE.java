@@ -1,11 +1,9 @@
-import javax.swing.*;
 
 public class PSE {
     private SacADos s;
 
     private ABR meilleurSolution;
     private double borneInf;
-    //private Gloutonne glouton = new Gloutonne(s);
 
     public PSE(SacADos s) {
         this.s = s;
@@ -16,11 +14,10 @@ public class PSE {
         this.borneInf = 0;
 
         for(Objet o : s.objets)
-            bornSup += o.getVi();
+            bornSup += o.getVi(); // Borne supérieur = la somme des valeurs de touts les objets
 
-       //glouton.resoudreGloutonne();
         for(Objet o : s.objetsSelectionne)
-            this.borneInf += o.getVi();
+            this.borneInf += o.getVi(); //Borne inférieur = gloutonne
 
         if(bornSup != s.valeurTotal()){
             ABR racine = new ABR();
@@ -34,9 +31,16 @@ public class PSE {
         }
     }
 
+    /***
+     * Permet de créer l'arbre binaires
+     * @param indice
+     * @param noeud
+     * @param maxLimite
+     */
     private void arbreRecherche(int indice, ABR noeud, double maxLimite){
         noeud.CreerFilsG(indice, s.objets.get(indice));
         noeud.CreerFilsD();
+
 
         if(noeud.getFilsG().getPoids() <= s.poidsMax  && noeud.getFilsG().getValeur() >= this.borneInf ){
             this.meilleurSolution = noeud.getFilsG();
@@ -54,6 +58,10 @@ public class PSE {
         }
     }
 
+    /***
+     * Remonte l'arbre à partir du meilleur noeud récursivement
+     * ajoute les objects de la solution trouvée
+     */
     private void ajoutRecherche(ABR meilleurNoeud){
         int k;
 

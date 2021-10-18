@@ -8,17 +8,11 @@ public class Objet implements Comparable<Objet>{
         nom = inom;
         Pi = ipoids;
         Vi = ivaleur;
-
     }
-
 
     @Override
     public String toString() {
         return nom + " ; " + "  " + Pi + ";  " + Vi + " " + Vi/Pi ;
-    }
-
-    public String getNom() {
-        return nom;
     }
 
     public double getVi() {
@@ -29,11 +23,17 @@ public class Objet implements Comparable<Objet>{
         return Pi;
     }
 
+    /***
+     * Permet de calculer le rapport pour chaque object
+     */
     public double rapport(){
         return this.Vi/this.Pi;
     }
 
 
+    /***
+     * Permet de comparer un object à un autre
+     */
     @Override
     public int compareTo(Objet o) {
         if (this.rapport() > o.rapport())
@@ -43,6 +43,5 @@ public class Objet implements Comparable<Objet>{
         else
             return 0;
     }
-
 
 }

@@ -7,36 +7,16 @@ import java.io.InputStreamReader;
 public class SacADos {
     public double poidsMax;
     public List<Objet> objetsSelectionne = new ArrayList<Objet>();
-    public ArrayList<Objet> objets = new ArrayList<Objet>();;
+    public ArrayList<Objet> objets = new ArrayList<Objet>();
     public double poidsSac;
 
-    private static SacADos s;
-    private static Gloutonne g;
-    private static ProgDynamique d;
-    private static PSE pse;
-
-
-    /*static List<Objet> objets = new ArrayList<>(Arrays.asList(
-            new Objet("Lampe", 2.0, 30.0),
-            new Objet("Sac de couchage", 1.0, 20.0),
-            new Objet("Camping gaz", 3.0,40.0),
-            new Objet("Couteau suisse", 0.2,50.0),
-            new Objet("Snickers", 0.1,3.0),
-            new Objet("Tente 2 secondes", 3.0,100.0),
-            new Objet("Briquet", 0.2,0.3),
-            new Objet("Coca", 10.0,20.0),
-            new Objet("Chips", 0.2,2.0)
-
-    ));*/
-
     public SacADos(double poids) {
-        List<Objet> objets = new ArrayList<Objet>();  //!!
         poidsMax = poids;
         poidsSac = 0.0;
     }
 
-    public SacADos(String chemin, float poidsMax) {
-
+    public SacADos() {
+        poidsSac = 0.0;
     }
 
     public double valeurTotal(){
@@ -68,6 +48,9 @@ public class SacADos {
         }
     }
 
+    /***
+     * Permet d'ajouter un objet dans le sac s'il y a assez de place
+     */
     public void ajouter(Objet objet) {
         if (objet.getPi() + this.poidsSac <= this.poidsMax) {
             this.objetsSelectionne.add(objet);
@@ -79,79 +62,19 @@ public class SacADos {
     @Override
     public String toString() {
         double valeurTotal = 0;
+        System.out.println("Objets selectionné mis dans le sac : \n");
         for (int i = 0; i < objetsSelectionne.size(); ++i) {
             System.out.println(objetsSelectionne.get(i).toString());
             valeurTotal += objetsSelectionne.get(i).getVi();
         }
-        System.out.println("\n poidsSac : " + poidsSac + "valT :" + valeurTotal);
+        System.out.println("\n Poids total  : " + poidsSac + " | Valeur totale :" + valeurTotal);
         return "*";
     }
 
-    public static void main(String[] args) {
 
-        msg();
-        lectureCommande();
-        //SacADos sac1 = new SacADos();
-
-        //System.out.println(sac1);
-        //g.resoudreGloutonne(sac1);
-        //resoudreDynamique(sac1);
-        //System.out.println(sac1);
-
-
-    }
-
-    private static void msg() {
-        System.out.println("******************************************************");
-        System.out.println("\nTapez le script de la façon suivante : $>resoudre-sac-a-dos chemin poids-maximal methode \n");
-        System.out.print("$>resoudre-sac-a-dos ");
-
-    }
-
-    private static void lectureCommande() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String chemin = sc.next();
-            if (chemin.compareTo("exit") == 0)
-                return;
-            double maxPoids = Double.valueOf(sc.next());
-            String methode = sc.next();
-            System.out.println("\nDemande de méthode: " + methode + " avec un poids maximal de " + maxPoids + " et le nom du fichier texte est de " + chemin);
-            System.out.println("------------------------------------------------------------------------------------------------------------------------");
-            s = new SacADos(maxPoids);
-            s.initObjects(chemin);
-            choixMethode(methode);
-        }
-
-
-    }
-
-    private static void choixMethode(String methode) {
-        switch(methode){
-            case "glouton":
-                g = new Gloutonne(s);
-                g.resoudreGloutonne();
-                System.out.println(s.toString());
-                break;
-
-            case "dynamique" :
-                d = new ProgDynamique(s);
-                d.resoudreDynamique();
-                System.out.println(s.toString());
-                break;
-
-            case "pse" :
-                pse = new PSE(s);
-                g = new Gloutonne(s);
-                g.resoudreGloutonne();
-                pse.resoudrePSE();
-                System.out.println(s.toString());
-                break;
-            default :
-                System.out.println("Erreur de saisie");
-        }
-    }
-
+    /***
+     * Permet de vider la liste d'objects selectionnés
+     */
     public void vider() {
         this.objetsSelectionne.clear();
         this.poidsSac = 0.0;

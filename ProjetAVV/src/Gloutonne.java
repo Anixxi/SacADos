@@ -7,7 +7,10 @@ public class Gloutonne {
         s = sac;
     }
 
-
+    /***
+     * Trie les objects en fonction du rapport des objects
+     * permet d'ajouter les objects à la liste d'objects selectionnés tant qu'elle ne dépasse pas le poids max
+     */
     public void resoudreGloutonne(){
 
         Collections.sort(s.objets);
@@ -20,8 +23,5 @@ public class Gloutonne {
             }
         }
     }
-
-
-
 
 }

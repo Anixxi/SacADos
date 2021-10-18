@@ -27,6 +27,9 @@ public class ABR {
         return filsG;
     }
 
+    /***
+     * Permet de créer un fils gauche
+     */
     public void CreerFilsG(int indice, Objet o) {
         this.filsG = new ABR(indice,this, this.valeur + o.getVi(), this.poids + o.getPi() );
     }
@@ -35,6 +38,9 @@ public class ABR {
         return filsD;
     }
 
+    /***
+     * Permet de créer un fils droit
+     */
     public void CreerFilsD() {
         this.filsD = new ABR(-1, this, this.valeur, this.poids);
     }
